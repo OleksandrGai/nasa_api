@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data_classes/earth_polychromatic_image.dart';
 import '../widgets/earth_polychromatic_image_widget.dart';
 
 class EarthPolychromaticScreen extends StatefulWidget {

@@ -60,6 +60,32 @@ class FeaturesListView extends StatelessWidget {
           ),
         ),
       ),
+      Padding(
+        padding:
+        const EdgeInsets.only(left: 15.0, right: 15, top: 10, bottom: 10),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/fourth');
+          },
+          child: Container(
+            height: 50,
+            width: 70,
+            decoration: BoxDecoration(
+                color: const Color(0xFF061F4A),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.red, width: 3)),
+            child: const Align(
+              child: Text(
+                'Mars Rover Photos',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
     ]);
   }
 }

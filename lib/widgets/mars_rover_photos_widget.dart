@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 
-import '../api_data/earth_polychromatic_image_api_data.dart';
-import '../data_classes/earth_polychromatic_image.dart';
-import 'package:http/http.dart' as http;
+import '../api_data/mars_rover_photos_api_data.dart';
+import '../data_classes/mars_rover_photos.dart';
 
-class EarthPolychromaticImageDetailsWidget extends StatefulWidget {
-  const EarthPolychromaticImageDetailsWidget({super.key});
+class MarsRoverPhotosDetailsWidget extends StatefulWidget {
+  const MarsRoverPhotosDetailsWidget({super.key});
 
   @override
-  State<EarthPolychromaticImageDetailsWidget> createState() =>
-      _EarthPolychromaticImageDetailsWidgetState();
+  State<MarsRoverPhotosDetailsWidget> createState() =>
+      _MarsRoverPhotosDetailsWidgetState();
 }
 
-class _EarthPolychromaticImageDetailsWidgetState
-    extends State<EarthPolychromaticImageDetailsWidget> {
-  late Future<List<EarthPolychromaticImage>> earthPolychrom;
+class _MarsRoverPhotosDetailsWidgetState
+    extends State<MarsRoverPhotosDetailsWidget> {
+  late Future<List<MarsRoverPhotos>> marsPhotos;
 
   @override
   void initState() {
     super.initState();
-    earthPolychrom = getEarthPolychromaticImage(http.Client());
+    marsPhotos = getMarsRoverPhotos();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: earthPolychrom,
+        future: marsPhotos,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -35,10 +34,10 @@ class _EarthPolychromaticImageDetailsWidgetState
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 25, bottom: 14.0, right: 5.0, left: 14.0),
+                            top: 10, bottom: 14.0, right: 5.0, left: 14.0),
                         child: Center(
                           child: Text(
-                            snapshot.data![index].caption,
+                           'Sol - ${snapshot.data![index].sol.toString()}',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
@@ -47,7 +46,7 @@ class _EarthPolychromaticImageDetailsWidgetState
                         ),
                       ),
                       Text(
-                        'Date - ${snapshot.data![index].date}',
+                        'Eart date - ${snapshot.data![index].earth_date}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
@@ -66,7 +65,7 @@ class _EarthPolychromaticImageDetailsWidgetState
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.network(
-                              'https://epic.gsfc.nasa.gov/archive/enhanced/2023/07/01/png/${snapshot.data![index].image}.png',
+                              snapshot.data![index].img_src,
                               fit: BoxFit.fill,
                             )),
                       ),
@@ -74,12 +73,13 @@ class _EarthPolychromaticImageDetailsWidgetState
                         height: 20,
                       ),
                       Text(
-                        'Identifier - ${snapshot.data![index].identifier}',
+                        'Photo ID - ${snapshot.data![index].id}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Colors.white),
                       ),
+                      Divider(color: Colors.red,)
                     ],
                   );
                 });
